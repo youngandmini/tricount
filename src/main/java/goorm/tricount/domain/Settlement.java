@@ -20,5 +20,5 @@ public class Settlement {
     private Long id;
 
     @OneToMany(mappedBy = "settlement")
-    private List<Expense> expenses = new ArrayList<>();
+    private List<Expense> expenseList = new ArrayList<>();
 }
