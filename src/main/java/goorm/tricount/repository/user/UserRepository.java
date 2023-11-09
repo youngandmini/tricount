@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 public interface UserRepository {
 
-    public Long joinUser(User user);
+    Long joinUser(User user);
 }
