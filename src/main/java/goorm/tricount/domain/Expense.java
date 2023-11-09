@@ -15,7 +15,8 @@ public class Expense {
 
     @Id
     @GeneratedValue
-    private Long expenseId;
+    @Column(name = "expense_id")
+    private Long id;
 
     private String item;
     private BigDecimal price;
