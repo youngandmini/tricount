@@ -46,4 +46,18 @@ public class SettlementService {
         UserSettlement userSettlement = new UserSettlement(joinUser, joinSettlement);
         userSettlementRepository.save(userSettlement);
     }
+
+    public void deleteSettlement(Long settlementId, Long loginUserId) {
+
+        Settlement deleteSettlement = settlementRepository.find(settlementId).orElseThrow();
+
+        // settlement의 owner만 삭제할 수 있다.
+        if (!deleteSettlement.getOwner().getId().equals(loginUserId)) {
+            throw new IllegalStateException();
+        }
+
+        settlementRepository.delete(deleteSettlement);
+        // settlement를 삭제할 떄 userSettlement 들도 함께 삭제돼야함
+
+    }
 }
