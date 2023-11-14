@@ -5,11 +5,15 @@ import goorm.tricount.domain.Settlement;
 import goorm.tricount.domain.User;
 import goorm.tricount.domain.UserSettlement;
 import goorm.tricount.dto.SettlementCreateRequest;
+import goorm.tricount.dto.SettlementResponse;
 import goorm.tricount.repository.settlement.SettlementRepository;
 import goorm.tricount.repository.user.UserRepository;
 import goorm.tricount.repository.usersettlement.UserSettlementRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,5 +63,10 @@ public class SettlementService {
         settlementRepository.delete(deleteSettlement);
         // settlement를 삭제할 떄 userSettlement 들도 함께 삭제돼야함
 
+    }
+
+    public List<SettlementResponse> findByUser(Long loginUserId) {
+        List<Settlement> settlements = userSettlementRepository.findSettlementsByUserId(loginUserId);
+        return settlements.stream().map(SettlementResponse::of).collect(Collectors.toList());
     }
 }

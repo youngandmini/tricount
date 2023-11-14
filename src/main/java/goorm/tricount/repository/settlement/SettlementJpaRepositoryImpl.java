@@ -25,4 +25,9 @@ public class SettlementJpaRepositoryImpl implements SettlementRepository {
     public void delete(Settlement deleteSettlement) {
         settlementJpaRepository.delete(deleteSettlement);
     }
+
+    @Override
+    public Optional<Settlement> findByIdWithExpense(Long settlementId) {
+        return settlementJpaRepository.findByIdWithExpense(settlementId);
+    }
 }
