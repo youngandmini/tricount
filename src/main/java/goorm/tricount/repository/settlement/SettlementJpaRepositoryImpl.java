@@ -9,7 +9,7 @@ public class SettlementJpaRepositoryImpl implements SettlementRepository {
     private final SettlementJpaRepository settlementJpaRepository;
 
     @Override
-    public Long saveSettlement(Settlement settlement) {
+    public Long save(Settlement settlement) {
         Settlement savedSettlement = settlementJpaRepository.save(settlement);
         return savedSettlement.getId();
     }

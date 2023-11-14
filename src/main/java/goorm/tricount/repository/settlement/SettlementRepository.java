@@ -4,5 +4,5 @@ import goorm.tricount.domain.Settlement;
 
 public interface SettlementRepository {
 
-    Long saveSettlement(Settlement settlement);
+    Long save(Settlement settlement);
 }

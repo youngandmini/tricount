@@ -9,7 +9,7 @@ public class UserSettlementJpaRepositoryImpl implements UserSettlementRepository
     private final UserSettlementJpaRepository userSettlementJpaRepository;
 
     @Override
-    public Long saveUserSettlement(UserSettlement userSettlement) {
+    public Long save(UserSettlement userSettlement) {
         UserSettlement savedUserSettlement = userSettlementJpaRepository.save(userSettlement);
         return savedUserSettlement.getId();
     }

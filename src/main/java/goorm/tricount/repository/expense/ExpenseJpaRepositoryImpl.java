@@ -9,7 +9,7 @@ public class ExpenseJpaRepositoryImpl implements ExpenseRepository {
     private final ExpenseJpaRepository expenseJpaRepository;
 
     @Override
-    public Long saveExpense(Expense expense) {
+    public Long save(Expense expense) {
         Expense savedExpense = expenseJpaRepository.save(expense);
         return savedExpense.getId();
     }
