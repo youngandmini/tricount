@@ -18,7 +18,7 @@ public class Expense {
     @Column(name = "expense_id")
     private Long id;
 
-    private String item;
+    private String name;
     private BigDecimal price;
     private LocalDate expensedDate;
 
@@ -29,4 +29,13 @@ public class Expense {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "settlement_id")
     private Settlement settlement;
+
+    public Expense(String name, BigDecimal price, LocalDate expensedDate, User paidBy, Settlement settlement) {
+        this.name = name;
+        this.price = price;
+        this.expensedDate = expensedDate;
+        this.paidBy = paidBy;
+        this.settlement = settlement;
+        settlement.getExpenseList().add(this);
+    }
 }
