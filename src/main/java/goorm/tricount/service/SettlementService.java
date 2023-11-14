@@ -23,8 +23,7 @@ public class SettlementService {
 
         User currentUser = userRepository.find(userId).orElseThrow();
 
-        Settlement settlement = request.toEntity();
-        settlement.setOwner(currentUser);
+        Settlement settlement = new Settlement(request.getSettlementName(), currentUser);
         settlementRepository.save(settlement);
 
         // settlement를 만든 회원은 settlement에 자동 가입된다.

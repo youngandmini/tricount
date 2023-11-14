@@ -12,7 +12,4 @@ public class SettlementCreateRequest {
 
     private String settlementName;
 
-    public Settlement toEntity() {
-        return new Settlement(settlementName);
-    }
 }
