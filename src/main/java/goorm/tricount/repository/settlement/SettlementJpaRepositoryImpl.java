@@ -3,6 +3,8 @@ package goorm.tricount.repository.settlement;
 import goorm.tricount.domain.Settlement;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class SettlementJpaRepositoryImpl implements SettlementRepository {
 
@@ -12,5 +14,15 @@ public class SettlementJpaRepositoryImpl implements SettlementRepository {
     public Long save(Settlement settlement) {
         Settlement savedSettlement = settlementJpaRepository.save(settlement);
         return savedSettlement.getId();
+    }
+
+    @Override
+    public Optional<Settlement> find(Long settlementId) {
+        return settlementJpaRepository.findById(settlementId);
+    }
+
+    @Override
+    public void delete(Settlement deleteSettlement) {
+        settlementJpaRepository.delete(deleteSettlement);
     }
 }

@@ -28,6 +28,10 @@ public class Settlement {
     @JoinColumn(name = "user_id")
     private User owner;
 
+    public Settlement(String name) {
+        this.name = name;
+    }
+
     public void setOwner(User user) {
         this.owner = owner;
     }

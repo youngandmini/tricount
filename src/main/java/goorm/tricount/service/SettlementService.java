@@ -4,6 +4,7 @@ package goorm.tricount.service;
 import goorm.tricount.domain.Settlement;
 import goorm.tricount.domain.User;
 import goorm.tricount.domain.UserSettlement;
+import goorm.tricount.dto.SettlementCreateRequest;
 import goorm.tricount.repository.settlement.SettlementRepository;
 import goorm.tricount.repository.user.UserRepository;
 import goorm.tricount.repository.usersettlement.UserSettlementRepository;
