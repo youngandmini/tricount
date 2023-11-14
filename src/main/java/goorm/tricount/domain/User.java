@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -19,4 +22,7 @@ public class User {
     private String username;
     private String address;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserSettlement> userSettlementList = new ArrayList<>();
 }

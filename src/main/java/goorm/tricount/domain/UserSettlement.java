@@ -23,4 +23,10 @@ public class UserSettlement {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "settlement_id")
     private Settlement settlement;
+
+    public UserSettlement(User user, Settlement settlement) {
+        this.user = user;
+        this.settlement = settlement;
+        user.getUserSettlementList().add(this);
+    }
 }

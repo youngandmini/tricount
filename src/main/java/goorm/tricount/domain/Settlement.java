@@ -21,4 +21,14 @@ public class Settlement {
 
     @OneToMany(mappedBy = "settlement")
     private List<Expense> expenseList = new ArrayList<>();
+
+    private String name;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
+
+    public void setOwner(User user) {
+        this.owner = owner;
+    }
 }
