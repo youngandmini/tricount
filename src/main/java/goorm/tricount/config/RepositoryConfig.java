@@ -1,4 +1,4 @@
-package goorm.tricount;
+package goorm.tricount.config;
 
 import goorm.tricount.repository.expense.ExpenseJpaRepository;
 import goorm.tricount.repository.expense.ExpenseRepositoryJpaImpl;
