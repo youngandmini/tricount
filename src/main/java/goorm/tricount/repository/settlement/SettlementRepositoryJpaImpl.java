@@ -30,4 +30,9 @@ public class SettlementRepositoryJpaImpl implements SettlementRepository {
     public Optional<Settlement> findByIdWithExpense(Long settlementId) {
         return settlementJpaRepository.findByIdWithExpense(settlementId);
     }
+
+    @Override
+    public Optional<Settlement> findByIdWithUserSettlement(Long settlementId) {
+        return settlementJpaRepository.findByIdWithUserSettlement(settlementId);
+    }
 }

@@ -13,4 +13,6 @@ public interface SettlementRepository {
     void delete(Settlement deleteSettlement);
 
     Optional<Settlement> findByIdWithExpense(Long settlementId);
+
+    Optional<Settlement> findByIdWithUserSettlement(Long settlementId);
 }

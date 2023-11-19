@@ -9,9 +9,9 @@ import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class ExpenseCreateRequest {
+public class ExpenseAddRequest {
 
     private String expenseName;
     private BigDecimal expensePrice;
-    private LocalDate expenseDate;
+    private LocalDate expensedDate;
 }

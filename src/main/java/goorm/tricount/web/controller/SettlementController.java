@@ -1,9 +1,8 @@
 package goorm.tricount.web.controller;
 
-import goorm.tricount.dto.SettlementCreateRequest;
-import goorm.tricount.dto.SimpleSettlementResponse;
-import goorm.tricount.dto.SettlementResponse;
+import goorm.tricount.dto.*;
 import goorm.tricount.exception.UserUnauthorizedException;
+import goorm.tricount.service.ExpenseService;
 import goorm.tricount.service.SettlementService;
 import goorm.tricount.web.apiresponse.ApiResponse;
 import goorm.tricount.web.common.LoginSessionManager;
@@ -21,6 +20,7 @@ import java.util.List;
 public class SettlementController {
 
     private final SettlementService settlementService;
+    private final ExpenseService expenseService;
 
     @PostMapping
     public ApiResponse<SettlementResponse> createSettlement(@RequestBody SettlementCreateRequest settlementCreateRequest,
@@ -90,4 +90,52 @@ public class SettlementController {
 
         return ApiResponse.ok(null);
     }
+
+    @PostMapping("/{settlementId}/expenses")
+    public ApiResponse<Void> addExpense(@RequestBody ExpenseAddRequest expenseAddRequest,
+                                        @PathVariable("settlementId") Long settlementId,
+                                        HttpServletRequest request) {
+        Long loginUserId = LoginSessionManager.getSession(request);
+        if (loginUserId == null) {
+            throw new UserUnauthorizedException();
+        }
+
+        log.info("정산방 [{}] 지출 추가 요청 발생. 요청한 유저 아이디: {}", settlementId, loginUserId);
+        expenseService.createExpense(expenseAddRequest, settlementId, loginUserId);
+        log.info("정산방 [{}] 지출 추가 요청 수락. 요청한 유저 아이디: {}", settlementId, loginUserId);
+
+        return ApiResponse.ok(null);
+    }
+
+    @DeleteMapping("/{settlementId}/expenses/{expenseId}")
+    public ApiResponse<Void> deleteExpense(@PathVariable("settlementId") Long settlementId,
+                                        @PathVariable("expenseId") Long expenseId,
+                                        HttpServletRequest request) {
+
+        Long loginUserId = LoginSessionManager.getSession(request);
+        if (loginUserId == null) {
+            throw new UserUnauthorizedException();
+        }
+        log.info("정산방 [{}] 지출 [{}] 삭제 요청 발생. 요청한 유저 아이디: {}", settlementId, expenseId, loginUserId);
+        expenseService.deleteExpense(settlementId, expenseId, loginUserId);
+        log.info("정산방 [{}] 지출 [{}] 삭제 요청 수락. 요청한 유저 아이디: {}", settlementId, expenseId, loginUserId);
+
+        return ApiResponse.ok(null);
+    }
+
+    @GetMapping("/{settlementId}/balance")
+    public ApiResponse<List<BalanceResponse>> getBalanceResult(@PathVariable("settlementId") Long settlementId,
+                                                               HttpServletRequest request) {
+
+        Long loginUserId = LoginSessionManager.getSession(request);
+        if (loginUserId == null) {
+            throw new UserUnauthorizedException();
+        }
+        log.info("정산방 [{}] 정산 결과 요청 발생. 요청한 유저 아이디: {}", settlementId, loginUserId);
+        List<BalanceResponse> response = expenseService.calculateBalance(settlementId, loginUserId);
+        log.info("정산방 [{}] 정산 결과 요청 수락. 요청한 유저 아이디: {}", settlementId, loginUserId);
+
+        return ApiResponse.ok(response);
+    }
+
 }
