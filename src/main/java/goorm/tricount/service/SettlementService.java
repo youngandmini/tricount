@@ -5,7 +5,12 @@ import goorm.tricount.domain.Settlement;
 import goorm.tricount.domain.User;
 import goorm.tricount.domain.UserSettlement;
 import goorm.tricount.dto.SettlementCreateRequest;
+import goorm.tricount.dto.SimpleSettlementResponse;
 import goorm.tricount.dto.SettlementResponse;
+import goorm.tricount.exception.AlreadyJoinSettlementException;
+import goorm.tricount.exception.ForbiddenException;
+import goorm.tricount.exception.ResourceNotFoundException;
+import goorm.tricount.exception.UnexpectedException;
 import goorm.tricount.repository.settlement.SettlementRepository;
 import goorm.tricount.repository.user.UserRepository;
 import goorm.tricount.repository.usersettlement.UserSettlementRepository;
@@ -13,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +29,9 @@ public class SettlementService {
     private final UserRepository userRepository;
     private final UserSettlementRepository userSettlementRepository;
 
-    public Long createSettlement(SettlementCreateRequest request, Long userId) {
+    public SettlementResponse createSettlement(SettlementCreateRequest request, Long loginUserId) {
 
-        User currentUser = userRepository.find(userId).orElseThrow();
+        User currentUser = userRepository.find(loginUserId).orElseThrow(UnexpectedException::new);
 
         Settlement settlement = new Settlement(request.getSettlementName(), currentUser);
         settlementRepository.save(settlement);
@@ -34,21 +40,39 @@ public class SettlementService {
         UserSettlement userSettlement = new UserSettlement(currentUser, settlement);
         userSettlementRepository.save(userSettlement);
 
-        return settlement.getId();
+        return SettlementResponse.of(settlement);
     }
 
-    public void joinSettlement(Long settlementId, Long userId, Long loginUserId) {
+    public SettlementResponse getSettlement(Long settlementId, Long loginUserId) {
 
-        User joinUser = userRepository.find(userId).orElseThrow();
+        Settlement findSettlement = settlementRepository.findByIdWithExpense(settlementId).orElseThrow(ResourceNotFoundException::new);
+        UserSettlement userSettlement = userSettlementRepository.findBySettlementIdAndUserId(settlementId, loginUserId)
+                .orElseThrow(ForbiddenException::new);
+
+        return SettlementResponse.of(findSettlement);
+    }
+
+    public void joinSettlement(Long settlementId, Long loginUserId) {
+
+        User joinUser = userRepository.find(loginUserId).orElseThrow();
         Settlement joinSettlement = settlementRepository.find(settlementId).orElseThrow();
+        Optional<UserSettlement> findUserSettlement = userSettlementRepository.findBySettlementIdAndUserId(settlementId, loginUserId);
 
-        // settlement의 owner만 초대할 수 있다.
-        if (!joinSettlement.getOwner().getId().equals(loginUserId)) {
-            throw new IllegalStateException();
+        if (findUserSettlement.isPresent()) {
+            throw new AlreadyJoinSettlementException();
         }
 
         UserSettlement userSettlement = new UserSettlement(joinUser, joinSettlement);
         userSettlementRepository.save(userSettlement);
+    }
+
+
+    public List<SimpleSettlementResponse> getSettlementList(Long loginUserId) {
+
+        List<UserSettlement> userSettlementList = userSettlementRepository.findByUserId(loginUserId);
+        List<Settlement> settlementList = userSettlementList.stream().map(UserSettlement::getSettlement).toList();
+
+        return SimpleSettlementResponse.listOf(settlementList);
     }
 
     public void deleteSettlement(Long settlementId, Long loginUserId) {
@@ -57,16 +81,11 @@ public class SettlementService {
 
         // settlement의 owner만 삭제할 수 있다.
         if (!deleteSettlement.getOwner().getId().equals(loginUserId)) {
-            throw new IllegalStateException();
+            throw new ForbiddenException();
         }
 
         settlementRepository.delete(deleteSettlement);
-        // settlement를 삭제할 떄 userSettlement 들도 함께 삭제돼야함
-
+        // settlement를 삭제할 떄 userSettlement / expense 들도 함께 삭제돼야함
     }
 
-    public List<SettlementResponse> findByUser(Long loginUserId) {
-        List<Settlement> settlements = userSettlementRepository.findSettlementsByUserId(loginUserId);
-        return settlements.stream().map(SettlementResponse::of).collect(Collectors.toList());
-    }
 }

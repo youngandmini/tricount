@@ -5,12 +5,13 @@ import goorm.tricount.domain.User;
 import goorm.tricount.domain.UserSettlement;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserSettlementRepository {
 
     Long save(UserSettlement userSettlement);
 
-    List<User> findUsersBySettlementId(Long settlementId);
+    Optional<UserSettlement> findBySettlementIdAndUserId(Long settlementId, Long userId);
 
-    List<Settlement> findSettlementsByUserId(Long userId);
+    List<UserSettlement> findByUserId(Long userId);
 }

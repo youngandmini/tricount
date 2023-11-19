@@ -24,9 +24,12 @@ public class Settlement {
 
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
     private User owner;
+
+    @OneToMany(mappedBy = "settlement")
+    private List<UserSettlement> userSettlementList = new ArrayList<>();
 
     public Settlement(String name, User owner) {
         this.name = name;

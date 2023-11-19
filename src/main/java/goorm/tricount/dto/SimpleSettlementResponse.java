@@ -7,26 +7,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class SettlementResponse {
+public class SimpleSettlementResponse {
 
     private Long settlementId;
     private String settlementName;
     private String owner;
-    private List<String> userList;
-    private List<ExpenseResponse> expenseList;
 
-    public static SettlementResponse of(Settlement settlement) {
-        return new SettlementResponse(
+    private static SimpleSettlementResponse of(Settlement settlement) {
+        return new SimpleSettlementResponse(
                 settlement.getId(),
                 settlement.getName(),
-                settlement.getOwner().getNickname(),
-                settlement.getUserSettlementList().stream().map(us -> us.getUser().getNickname()).toList(),
-                ExpenseResponse.listOf(settlement.getExpenseList())
+                settlement.getOwner().getNickname()
         );
+    }
+
+    public static List<SimpleSettlementResponse> listOf(List<Settlement> settlementList) {
+        return settlementList.stream().map(SimpleSettlementResponse::of).collect(Collectors.toList());
     }
 }

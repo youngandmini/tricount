@@ -26,18 +26,20 @@ public class LoginController {
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<Void> signup(@RequestBody UserSignupRequest signupRequest) {
+        log.info("새로운 회원가입 요청 발생. 유저 아이디: {}", signupRequest.getNickname());
         loginService.signup(signupRequest);
-        log.info("새로운 회원가입 요청. 유저 아이디: {}", signupRequest.getNickname());
+        log.info("새로운 회원가입 요청 수락. 유저 아이디: {}", signupRequest.getNickname());
         return ApiResponse.ok(null);
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<Void> login(@RequestBody UserLoginRequest loginRequest, HttpServletResponse response) {
+
+        log.info("로그인 요청 발생. 로그인 시도한 유저: {}", loginRequest.getUsername());
         Long loginUserId = loginService.login(loginRequest);
         LoginSessionManager.createSession(loginUserId, response);
-
-        log.info("로그인 요청 발생. 유저 식별자: {}", loginUserId);
+        log.info("로그인 요청 수락. 유저 식별자: {}", loginUserId);
         return ApiResponse.ok(null);
     }
 
@@ -47,7 +49,7 @@ public class LoginController {
 
         log.info("로그아웃 요청 발생. 유저 식별자: {}", LoginSessionManager.getSession(request));
         LoginSessionManager.expireSession(request);
-
+        log.info("로그아웃 요청 수락. 유저 식별자: {}", LoginSessionManager.getSession(request));
         return ApiResponse.ok(null);
     }
 }

@@ -6,9 +6,10 @@ import goorm.tricount.domain.UserSettlement;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
-public class UserSettlementJpaRepositoryImpl implements UserSettlementRepository {
+public class UserSettlementRepositoryJpaImpl implements UserSettlementRepository {
 
     private final UserSettlementJpaRepository userSettlementJpaRepository;
 
@@ -19,12 +20,12 @@ public class UserSettlementJpaRepositoryImpl implements UserSettlementRepository
     }
 
     @Override
-    public List<User> findUsersBySettlementId(Long settlementId) {
-        return userSettlementJpaRepository.findUsersBySettlementId(settlementId);
+    public Optional<UserSettlement> findBySettlementIdAndUserId(Long settlementId, Long userId) {
+        return userSettlementJpaRepository.findBySettlementIdAndUserId(settlementId, userId);
     }
 
     @Override
-    public List<Settlement> findSettlementsByUserId(Long userId) {
-        return userSettlementJpaRepository.findSettlementsByUserId(userId);
+    public List<UserSettlement> findByUserId(Long userId) {
+        return userSettlementJpaRepository.findByUserId(userId);
     }
 }

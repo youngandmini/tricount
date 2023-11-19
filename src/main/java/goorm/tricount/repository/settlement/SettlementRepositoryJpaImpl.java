@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class SettlementJpaRepositoryImpl implements SettlementRepository {
+public class SettlementRepositoryJpaImpl implements SettlementRepository {
 
     private final SettlementJpaRepository settlementJpaRepository;
 

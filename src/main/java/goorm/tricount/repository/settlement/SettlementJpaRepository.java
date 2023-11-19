@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface SettlementJpaRepository extends JpaRepository<Settlement, Long> {
 
-    @Query("select s from Settlement s join fetch s.expenseList where s.id = :settlementId")
+    @Query("select s from Settlement s left join fetch s.expenseList where s.id = :settlementId")
     Optional<Settlement> findByIdWithExpense(@Param("settlementId") Long settlementId);
 }
