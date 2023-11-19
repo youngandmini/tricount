@@ -1,7 +1,7 @@
-package goorm.tricount.controller;
+package goorm.tricount.web.apiresponse;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import goorm.tricount.error.ApiErrorCode;
+import goorm.tricount.web.error.ApiErrorCode;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

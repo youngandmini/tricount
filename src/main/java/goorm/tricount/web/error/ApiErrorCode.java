@@ -1,4 +1,4 @@
-package goorm.tricount.error;
+package goorm.tricount.web.error;
 
 import jakarta.servlet.http.HttpServletResponse;
 

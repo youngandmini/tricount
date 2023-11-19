@@ -1,4 +1,4 @@
-package goorm.tricount.common;
+package goorm.tricount.web.common;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
-package goorm.tricount.common;
+package goorm.tricount.web.common;
 
-import goorm.tricount.controller.ApiResponse;
-import goorm.tricount.error.ApiErrorCode;
+import goorm.tricount.web.apiresponse.ApiResponse;
+import goorm.tricount.web.error.ApiErrorCode;
 import goorm.tricount.exception.LoginFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

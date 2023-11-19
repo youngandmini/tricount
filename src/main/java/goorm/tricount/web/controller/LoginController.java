@@ -1,7 +1,8 @@
-package goorm.tricount.controller;
+package goorm.tricount.web.controller;
 
 
-import goorm.tricount.common.LoginSessionManager;
+import goorm.tricount.web.apiresponse.ApiResponse;
+import goorm.tricount.web.common.LoginSessionManager;
 import goorm.tricount.dto.UserLoginRequest;
 import goorm.tricount.dto.UserSignupRequest;
 import goorm.tricount.service.LoginService;
