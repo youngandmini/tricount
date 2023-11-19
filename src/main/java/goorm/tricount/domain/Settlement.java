@@ -15,7 +15,7 @@ import java.util.List;
 public class Settlement {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "settlement_id")
     private Long id;
 
