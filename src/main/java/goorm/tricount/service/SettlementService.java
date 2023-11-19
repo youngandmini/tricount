@@ -77,7 +77,7 @@ public class SettlementService {
 
     public void deleteSettlement(Long settlementId, Long loginUserId) {
 
-        Settlement deleteSettlement = settlementRepository.find(settlementId).orElseThrow();
+        Settlement deleteSettlement = settlementRepository.find(settlementId).orElseThrow(ResourceNotFoundException::new);
 
         // settlement의 owner만 삭제할 수 있다.
         if (!deleteSettlement.getOwner().getId().equals(loginUserId)) {
