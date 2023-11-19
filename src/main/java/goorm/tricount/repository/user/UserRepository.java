@@ -9,4 +9,6 @@ public interface UserRepository {
     Long save(User user);
 
     Optional<User> find(Long userId);
+
+    Optional<User> findByUsernameAndPassword(String username, String password);
 }

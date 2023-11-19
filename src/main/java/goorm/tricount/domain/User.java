@@ -19,10 +19,16 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    private String username;
-    private String address;
-    private String password;
+    private String username;    //아이디
+    private String password;    //패스워드
+    private String nickname;
 
     @OneToMany(mappedBy = "user")
     private List<UserSettlement> userSettlementList = new ArrayList<>();
+
+    public User(String username, String password, String nickname) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+    }
 }

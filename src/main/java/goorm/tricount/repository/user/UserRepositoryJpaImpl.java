@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class UserJpaRepositoryImpl implements UserRepository {
+public class UserRepositoryJpaImpl implements UserRepository {
 
     private final UserJpaRepository userJpaRepository;
 
@@ -19,6 +19,12 @@ public class UserJpaRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> find(Long userId) {
+
         return userJpaRepository.findById(userId);
+    }
+
+    @Override
+    public Optional<User> findByUsernameAndPassword(String username, String password) {
+        return userJpaRepository.findByUsernameAndPassword(username, password);
     }
 }

@@ -1,19 +1,18 @@
 package goorm.tricount;
 
 import goorm.tricount.repository.expense.ExpenseJpaRepository;
-import goorm.tricount.repository.expense.ExpenseJpaRepositoryImpl;
+import goorm.tricount.repository.expense.ExpenseRepositoryJpaImpl;
 import goorm.tricount.repository.expense.ExpenseRepository;
 import goorm.tricount.repository.settlement.SettlementJpaRepository;
-import goorm.tricount.repository.settlement.SettlementJpaRepositoryImpl;
+import goorm.tricount.repository.settlement.SettlementRepositoryJpaImpl;
 import goorm.tricount.repository.settlement.SettlementRepository;
 import goorm.tricount.repository.user.UserJpaRepository;
-import goorm.tricount.repository.user.UserJpaRepositoryImpl;
+import goorm.tricount.repository.user.UserRepositoryJpaImpl;
 import goorm.tricount.repository.user.UserRepository;
 import goorm.tricount.repository.usersettlement.UserSettlementJpaRepository;
-import goorm.tricount.repository.usersettlement.UserSettlementJpaRepositoryImpl;
+import goorm.tricount.repository.usersettlement.UserSettlementRepositoryJpaImpl;
 import goorm.tricount.repository.usersettlement.UserSettlementRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,18 +27,19 @@ public class RepositoryConfig {
 
     @Bean
     public UserRepository userRepository() {
-        return new UserJpaRepositoryImpl(userJpaRepository);
+
+        return new UserRepositoryJpaImpl(userJpaRepository);
     }
     @Bean
     public SettlementRepository settlementRepository() {
-        return new SettlementJpaRepositoryImpl(settlementJpaRepository);
+        return new SettlementRepositoryJpaImpl(settlementJpaRepository);
     }
     @Bean
     public ExpenseRepository expenseRepository() {
-        return new ExpenseJpaRepositoryImpl(expenseJpaRepository);
+        return new ExpenseRepositoryJpaImpl(expenseJpaRepository);
     }
     @Bean
     public UserSettlementRepository userSettlementRepository() {
-        return new UserSettlementJpaRepositoryImpl(userSettlementJpaRepository);
+        return new UserSettlementRepositoryJpaImpl(userSettlementJpaRepository);
     }
 }
