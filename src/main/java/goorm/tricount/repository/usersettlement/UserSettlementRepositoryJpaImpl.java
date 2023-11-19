@@ -1,7 +1,5 @@
 package goorm.tricount.repository.usersettlement;
 
-import goorm.tricount.domain.Settlement;
-import goorm.tricount.domain.User;
 import goorm.tricount.domain.UserSettlement;
 import lombok.RequiredArgsConstructor;
 

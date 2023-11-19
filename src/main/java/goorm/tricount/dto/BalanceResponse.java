@@ -2,7 +2,6 @@ package goorm.tricount.dto;
 
 
 import goorm.tricount.domain.BalanceResult;
-import goorm.tricount.domain.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

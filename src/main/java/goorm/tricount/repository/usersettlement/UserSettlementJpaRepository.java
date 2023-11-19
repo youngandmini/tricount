@@ -1,7 +1,5 @@
 package goorm.tricount.repository.usersettlement;
 
-import goorm.tricount.domain.Settlement;
-import goorm.tricount.domain.User;
 import goorm.tricount.domain.UserSettlement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
