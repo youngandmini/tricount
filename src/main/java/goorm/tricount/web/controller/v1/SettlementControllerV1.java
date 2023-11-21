@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+//@RestController
 @RequiredArgsConstructor
 @Slf4j
-//@RequestMapping("api/v1/settlements")
+@RequestMapping("api/v1/settlements")
 public class SettlementControllerV1 {
 
     private final SettlementService settlementService;
     private final ExpenseService expenseService;
 
-//    @PostMapping
+    @PostMapping
     public ApiResponse<SettlementResponse> createSettlement(@RequestBody SettlementCreateRequest settlementCreateRequest,
                                                             HttpServletRequest request) {
         Long loginUserId = LoginSessionManager.getSession(request);
@@ -36,7 +36,7 @@ public class SettlementControllerV1 {
         return ApiResponse.ok(response);
     }
 
-//    @GetMapping("/{settlementId}")
+    @GetMapping("/{settlementId}")
     public ApiResponse<SettlementResponse> getSettlement(@PathVariable("settlementId") Long settlementId,
                                                          HttpServletRequest request) {
         Long loginUserId = LoginSessionManager.getSession(request);
@@ -49,7 +49,7 @@ public class SettlementControllerV1 {
         return ApiResponse.ok(response);
     }
 
-//    @PostMapping("/{settlementId}")
+    @PostMapping("/{settlementId}")
     public ApiResponse<Void> joinSettlement(@PathVariable("settlementId") Long settlementId, HttpServletRequest request) {
 
         Long loginUserId = LoginSessionManager.getSession(request);
@@ -63,7 +63,7 @@ public class SettlementControllerV1 {
         return ApiResponse.ok(null);
     }
 
-//    @GetMapping
+    @GetMapping
     public ApiResponse<List<SimpleSettlementResponse>> getSettlementList(HttpServletRequest request) {
 
         Long loginUserId = LoginSessionManager.getSession(request);
@@ -77,7 +77,7 @@ public class SettlementControllerV1 {
         return ApiResponse.ok(response);
     }
 
-//    @DeleteMapping("/{settlementId}")
+    @DeleteMapping("/{settlementId}")
     public ApiResponse<Void> deleteSettlement(@PathVariable("settlementId") Long settlementId, HttpServletRequest request) {
 
         Long loginUserId = LoginSessionManager.getSession(request);
@@ -91,7 +91,7 @@ public class SettlementControllerV1 {
         return ApiResponse.ok(null);
     }
 
-//    @PostMapping("/{settlementId}/expenses")
+    @PostMapping("/{settlementId}/expenses")
     public ApiResponse<Void> addExpense(@RequestBody ExpenseAddRequest expenseAddRequest,
                                         @PathVariable("settlementId") Long settlementId,
                                         HttpServletRequest request) {
@@ -107,7 +107,7 @@ public class SettlementControllerV1 {
         return ApiResponse.ok(null);
     }
 
-//    @DeleteMapping("/{settlementId}/expenses/{expenseId}")
+    @DeleteMapping("/{settlementId}/expenses/{expenseId}")
     public ApiResponse<Void> deleteExpense(@PathVariable("settlementId") Long settlementId,
                                         @PathVariable("expenseId") Long expenseId,
                                         HttpServletRequest request) {
@@ -123,7 +123,7 @@ public class SettlementControllerV1 {
         return ApiResponse.ok(null);
     }
 
-//    @GetMapping("/{settlementId}/balance")
+    @GetMapping("/{settlementId}/balance")
     public ApiResponse<List<BalanceResponse>> getBalanceResult(@PathVariable("settlementId") Long settlementId,
                                                                HttpServletRequest request) {
 
