@@ -1,4 +1,4 @@
-package goorm.tricount.web.controller;
+package goorm.tricount.web.controller.v1;
 
 
 import goorm.tricount.web.apiresponse.ApiResponse;
@@ -11,15 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class LoginController {
+@RequestMapping("/api/v1")
+public class LoginControllerV1 {
 
     private final LoginService loginService;
 
